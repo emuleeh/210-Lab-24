@@ -3,17 +3,17 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <list>
+#include <set>
 #include <string>
 #include "Goat.h"
 using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 
-int select_goat(list<Goat> trip);
-void delete_goat(list<Goat> &trip);
-void add_goat(list<Goat> &trip, string [], string []);
-void display_trip(list<Goat> trip);
+int select_goat(set<Goat> trip);
+void delete_goat(set<Goat> &trip);
+void add_goat(set<Goat> &trip, string [], string []);
+void display_trip(set<Goat> trip);
 int main_menu();
 
 int main() {
@@ -32,8 +32,8 @@ int main() {
     while (fin1 >> colors[i++]);
     fin1.close();
     
-    //create list of goats
-    list<Goat> trip;
+    //create set of goats
+    set<Goat> trip;
     
     //Select menu options
     main_menu();
@@ -76,7 +76,7 @@ int main_menu() {
 }
 
 //select goat to delete
-int select_goat(list<Goat> trip) {
+int select_goat(set<Goat> trip) {
     int choose;
     cout << "Select which goat to delete: ";
     //submenu with choices
@@ -93,7 +93,7 @@ int select_goat(list<Goat> trip) {
 
 
 //delete goat
-void delete_goat(list<Goat> &trip) {
+void delete_goat(set<Goat> &trip) {
     int choose = select_goat(trip);
     auto it = trip.begin();
     advance(it, choose - 1);
@@ -101,7 +101,7 @@ void delete_goat(list<Goat> &trip) {
 }
 
 //add goat
-void add_goat(list<Goat> &trip, string names[], string colors[]) {
+void add_goat(set<Goat> &trip, string names[], string colors[]) {
     string name, color;
     int age;
     cout << "Adding Goat: " << endl;
@@ -115,11 +115,11 @@ void add_goat(list<Goat> &trip, string names[], string colors[]) {
     
     //new Goat object to add to list
     Goat new_goat(name, age, color);
-    trip.push_back(new_goat);
+    trip.insert(new_goat);
 }
 
 //display goats
-void display_trip(list<Goat> trip) {
+void display_trip(set<Goat> trip) {
     int i = 1;
     for (auto it = trip.begin(); it != trip.end(); it++, i++) {
         cout << "[" << i << "] ";
